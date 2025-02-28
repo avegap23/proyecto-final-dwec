@@ -1,13 +1,15 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+// Este es el componente que ya tienes en tu código
+import Buscar from "../componentes/buscar"; // Asegúrate de que la ruta es correcta
+import { Route } from "react-router-dom"; // Para declarar rutas
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+
 
 export default function Home() {
-  return <Welcome />;
+  return (
+    <div>
+      <h1>Bienvenido a la página principal</h1>
+      
+      <Buscar /> {/* Aquí incluimos el componente Buscar */}
+    </div>
+  );
 }
