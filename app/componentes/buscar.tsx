@@ -1,3 +1,4 @@
+// buscar.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -9,15 +10,13 @@ type Movie = {
   poster_path: string;
 };
 
-const TMDB_API_KEY = 'TU_CLAVE_API_AQUI'; // Reemplaza con tu clave de API
+const TMDB_API_KEY = 'abf5089fc83b3062f98114c95340c65b'; // Reemplaza con tu clave de API
 const TMDB_API_URL = 'https://api.themoviedb.org/3/search/movie';
 
-const Buscar: React.FC = () => {
+const Buscar: React.FC<{ onSearch: (movies: any[]) => void }> = ({ onSearch }) => {
   const [searchText, setSearchText] = useState<string>('');
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
 
-  // Obtener los resultados de la API al cambiar el texto del buscador
   useEffect(() => {
     if (searchText) {
       axios
@@ -29,19 +28,13 @@ const Buscar: React.FC = () => {
         })
         .then((response) => {
           setMovies(response.data.results);
+          onSearch(response.data.results); // Llamamos la función onSearch para pasar las películas
         })
         .catch((error) => {
           console.error('Error fetching data: ', error);
         });
-    } else {
-      setMovies([]);
     }
-  }, [searchText]);
-
-  // Filtrar las películas basadas en el texto de búsqueda
-  useEffect(() => {
-    setFilteredMovies(movies.filter(movie => movie.title.toLowerCase().includes(searchText.toLowerCase())));
-  }, [searchText, movies]);
+  }, [searchText, onSearch]);
 
   return (
     <div>
@@ -50,25 +43,10 @@ const Buscar: React.FC = () => {
         placeholder="Buscar película..."
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
-        className="border p-2 rounded"
+        className="border p-2 rounded mb-4 w-full"
       />
-      <div>
-        {filteredMovies.map((movie) => (
-          <div key={movie.id} className="movie">
-            <h3>{movie.title}</h3>
-            <p>{movie.overview}</p>
-            {movie.poster_path && (
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="w-32"
-              />
-            )}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
 
-export default Buscar;
+export default Buscar; // Asegúrate de que la exportación esté correcta
