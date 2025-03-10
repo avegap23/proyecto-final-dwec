@@ -54,8 +54,6 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
-      
-
       <div className="container mx-auto p-6">
         <Buscar onSearch={handleSearch} selectedGenre={selectedGenre} />
         <div className="flex flex-wrap gap-2 mt-4">
