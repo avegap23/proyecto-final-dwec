@@ -3,6 +3,7 @@ import Header from '../componentes/header';
 import Buscar from '../componentes/buscar';
 import Card from '../componentes/card';
 import axios from 'axios';
+import Carrousel from '../componentes/carrouselSeries';
 
 const API_KEY = 'abf5089fc83b3062f98114c95340c65b';
 const API_URL = 'https://api.themoviedb.org/3';
@@ -53,6 +54,8 @@ const Series: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
+
+<Carrousel />
       <div className="container mx-auto p-6">
         <Buscar onSearch={handleSearch} selectedGenre={selectedGenre} />
         <div className="flex flex-wrap gap-2 mt-4">

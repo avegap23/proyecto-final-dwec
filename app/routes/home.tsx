@@ -4,12 +4,14 @@ import Header from '../componentes/header';
 import Buscar from '../componentes/buscar';
 import Card from '../componentes/card';
 import axios from 'axios';
+import Carrousel from '../componentes/carrousel';
 
 const API_KEY = 'abf5089fc83b3062f98114c95340c65b';
 const API_URL = 'https://api.themoviedb.org/3';
 
 const Home: React.FC = () => {
   const [movies, setMovies] = useState<any[]>([]);
+  const [topmovies, setTopMovies] = useState<any[]>([]);
   const [genres, setGenres] = useState<any[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -17,6 +19,7 @@ const Home: React.FC = () => {
   useEffect(() => {
     fetchPopularMovies();
     fetchGenres();
+    fetchTopRated();
   }, []);
 
   const fetchPopularMovies = () => {
@@ -26,6 +29,16 @@ const Home: React.FC = () => {
       .catch((error) => console.error('Error obteniendo películas:', error))
       .finally(() => setLoading(false));
   };
+
+  const fetchTopRated = () => {
+    setLoading(true);
+    axios.get(`${API_URL}/movie/top_rated?api_key=${API_KEY}`)
+      .then((response) => setTopMovies(response.data.results))
+      .catch((error) => console.error('Error obteniendo películas:', error))
+      .finally(() => setLoading(false));
+  };
+
+
 
   const fetchGenres = () => {
     axios.get(`${API_URL}/genre/movie/list?api_key=${API_KEY}`)
@@ -54,7 +67,9 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
-      
+
+
+      <Carrousel />
 
       <div className="container mx-auto p-6">
         <Buscar onSearch={handleSearch} selectedGenre={selectedGenre} />

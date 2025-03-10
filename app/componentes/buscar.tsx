@@ -18,19 +18,29 @@ const Buscar: React.FC<Props> = ({ onSearch, selectedGenre }) => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        let url = '';
         const type = isSeries ? 'tv' : 'movie';
+        let url = '';
 
         if (searchText) {
+          // Si hay texto, buscar por nombre
           url = `${API_URL}/search/${type}?api_key=${API_KEY}&query=${searchText}`;
         } else if (selectedGenre) {
+          // Si no hay texto pero sí género, filtrar por género
           url = `${API_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${selectedGenre}`;
         } else {
+          // Si no hay ni texto ni género, mostrar populares
           url = `${API_URL}/${type}/popular?api_key=${API_KEY}`;
         }
 
         const response = await axios.get(url);
-        onSearch(response.data.results || [], searchText);
+        let results = response.data.results || [];
+
+        // Si hay nombre y género, filtrar localmente por género
+        if (searchText && selectedGenre) {
+          results = results.filter((item: any) => item.genre_ids.includes(selectedGenre));
+        }
+
+        onSearch(results, searchText);
       } catch (error) {
         console.error('Error buscando:', error);
       }
@@ -51,3 +61,4 @@ const Buscar: React.FC<Props> = ({ onSearch, selectedGenre }) => {
 };
 
 export default Buscar;
+
