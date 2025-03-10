@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../componentes/header';
 import Buscar from '../componentes/buscar';
 import Card from '../componentes/card';
@@ -8,33 +7,33 @@ import axios from 'axios';
 const API_KEY = 'abf5089fc83b3062f98114c95340c65b';
 const API_URL = 'https://api.themoviedb.org/3';
 
-const Home: React.FC = () => {
-  const [movies, setMovies] = useState<any[]>([]);
+const Series: React.FC = () => {
+  const [series, setSeries] = useState<any[]>([]);
   const [genres, setGenres] = useState<any[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<number | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    fetchPopularMovies();
+    fetchPopularSeries();
     fetchGenres();
   }, []);
 
-  const fetchPopularMovies = () => {
+  const fetchPopularSeries = () => {
     setLoading(true);
-    axios.get(`${API_URL}/movie/popular?api_key=${API_KEY}`)
-      .then((response) => setMovies(response.data.results))
-      .catch((error) => console.error('Error obteniendo películas:', error))
+    axios.get(`${API_URL}/tv/popular?api_key=${API_KEY}`)
+      .then((response) => setSeries(response.data.results))
+      .catch((error) => console.error('Error obteniendo series:', error))
       .finally(() => setLoading(false));
   };
 
   const fetchGenres = () => {
-    axios.get(`${API_URL}/genre/movie/list?api_key=${API_KEY}`)
+    axios.get(`${API_URL}/genre/tv/list?api_key=${API_KEY}`)
       .then((response) => setGenres(response.data.genres))
       .catch((error) => console.error('Error obteniendo géneros:', error));
   };
 
-  const handleSearch = (searchedMovies: any[], text: string) => {
-    setMovies(searchedMovies);
+  const handleSearch = (searchedSeries: any[], text: string) => {
+    setSeries(searchedSeries);
   };
 
   const handleGenreSelect = (genreId: number | null) => {
@@ -42,24 +41,21 @@ const Home: React.FC = () => {
     setLoading(true);
 
     if (genreId) {
-      axios.get(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`)
-        .then((response) => setMovies(response.data.results))
-        .catch((error) => console.error('Error obteniendo películas:', error))
+      axios.get(`${API_URL}/discover/tv?api_key=${API_KEY}&with_genres=${genreId}`)
+        .then((response) => setSeries(response.data.results))
+        .catch((error) => console.error('Error obteniendo series:', error))
         .finally(() => setLoading(false));
     } else {
-      fetchPopularMovies();
+      fetchPopularSeries();
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <Header />
-      
-
       <div className="container mx-auto p-6">
         <Buscar onSearch={handleSearch} selectedGenre={selectedGenre} />
         <div className="flex flex-wrap gap-2 mt-4">
-          {/* Botón para mostrar todas las películas */}
           <button
             onClick={() => handleGenreSelect(null)}
             className={`px-4 py-2 rounded-full transition ${
@@ -68,7 +64,6 @@ const Home: React.FC = () => {
           >
             🔄 Todos
           </button>
-          {/* Mostrar los géneros disponibles */}
           {genres.map((genre) => (
             <button
               key={genre.id}
@@ -81,16 +76,14 @@ const Home: React.FC = () => {
             </button>
           ))}
         </div>
-
-        {/* Cargando */}
-        {loading && <p className="text-center mt-4">⏳ Cargando películas...</p>}
-
-        {/* Mostrar las películas */}
+        {loading && <p className="text-center mt-4">⏳ Cargando series...</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-          {movies.length > 0 ? (
-            movies.map((movie) => <Card key={movie.id} item={movie} />)
+          {series.length > 0 ? (
+            series.map((serie) => <Card key={serie.id} item={serie} />
+
+        )
           ) : (
-            !loading && <p className="text-center col-span-full">❌ No se encontraron películas.</p>
+            !loading && <p className="text-center col-span-full">❌ No se encontraron series.</p>
           )}
         </div>
       </div>
@@ -98,4 +91,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Series;

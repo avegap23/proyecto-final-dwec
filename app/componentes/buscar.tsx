@@ -1,52 +1,53 @@
-// buscar.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 
-// Tipo para los datos de la película
-type Movie = {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
+const API_KEY = 'abf5089fc83b3062f98114c95340c65b';
+const API_URL = 'https://api.themoviedb.org/3';
+
+type Props = {
+  onSearch: (items: any[], text: string) => void;
+  selectedGenre: number | null;
 };
 
-const TMDB_API_KEY = 'abf5089fc83b3062f98114c95340c65b'; // Reemplaza con tu clave de API
-const TMDB_API_URL = 'https://api.themoviedb.org/3/search/movie';
-
-const Buscar: React.FC<{ onSearch: (movies: any[]) => void }> = ({ onSearch }) => {
+const Buscar: React.FC<Props> = ({ onSearch, selectedGenre }) => {
   const [searchText, setSearchText] = useState<string>('');
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const location = useLocation();
+  const isSeries = location.pathname.includes('/series');
 
   useEffect(() => {
-    if (searchText) {
-      axios
-        .get(TMDB_API_URL, {
-          params: {
-            api_key: TMDB_API_KEY,
-            query: searchText,
-          },
-        })
-        .then((response) => {
-          setMovies(response.data.results);
-          onSearch(response.data.results); // Llamamos la función onSearch para pasar las películas
-        })
-        .catch((error) => {
-          console.error('Error fetching data: ', error);
-        });
-    }
-  }, [searchText, onSearch]);
+    const fetchItems = async () => {
+      try {
+        let url = '';
+        const type = isSeries ? 'tv' : 'movie';
+
+        if (searchText) {
+          url = `${API_URL}/search/${type}?api_key=${API_KEY}&query=${searchText}`;
+        } else if (selectedGenre) {
+          url = `${API_URL}/discover/${type}?api_key=${API_KEY}&with_genres=${selectedGenre}`;
+        } else {
+          url = `${API_URL}/${type}/popular?api_key=${API_KEY}`;
+        }
+
+        const response = await axios.get(url);
+        onSearch(response.data.results || [], searchText);
+      } catch (error) {
+        console.error('Error buscando:', error);
+      }
+    };
+
+    fetchItems();
+  }, [searchText, selectedGenre, onSearch, isSeries]);
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Buscar película..."
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        className="border p-2 rounded mb-4 w-full"
-      />
-    </div>
+    <input
+      type="text"
+      placeholder={isSeries ? "🔍 Buscar serie..." : "🔍 Buscar película..."}
+      value={searchText}
+      onChange={(e) => setSearchText(e.target.value)}
+      className="border p-3 rounded w-full bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
   );
 };
 
-export default Buscar; // Asegúrate de que la exportación esté correcta
+export default Buscar;

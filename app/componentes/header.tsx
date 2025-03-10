@@ -1,5 +1,6 @@
 import React from 'react';
-import Buscar from './buscar'; // Importamos el componente Buscar
+import Logo from '../assets/tmdblogo.png';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
@@ -7,23 +8,23 @@ const Header: React.FC = () => {
       {/* Imagen a la izquierda */}
       <div className="flex items-center">
         <img
-          src="/logo.png" // Ruta de la imagen
+          src={Logo} // Ruta de la imagen
           alt="Logo"
-          className="w-12 h-12 mr-4" // Tamaño de la imagen
+          className="h-12 mr-4" // Tamaño de la imagen
         />
-        <span className="text-2xl font-bold">MovieApp</span>
+      
       </div>
 
       {/* Nav en el centro */}
-      <nav className="flex-grow flex justify-center">
+      <nav className="flex-grow flex flex-wrap justify-end">
         <ul className="flex space-x-6">
-          <li><a href="/" className="hover:text-gray-400">Inicio</a></li>
-          <li><a href="/about" className="hover:text-gray-400">Acerca</a></li>
-          <li><a href="/contact" className="hover:text-gray-400">Contacto</a></li>
+          <li><Link to="/" className='hover:text-green-300'>Inicio </Link></li>
+          <li><Link to="/movies" className="hover:text-green-300">Peliculas </Link></li>
+          <li><Link to="/series" className="hover:text-green-300">Series</Link></li>
         </ul>
       </nav>
 
-     
+   
       
     </header>
   );
