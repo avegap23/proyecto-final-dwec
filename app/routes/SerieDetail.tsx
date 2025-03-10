@@ -14,6 +14,7 @@ const SerieDetail: React.FC = () => {
   const [serieDetails, setSerieDetails] = useState<any | null>(null);
   const [trailer, setTrailer] = useState<any | null>(null);
   const [cast, setCast] = useState<any[]>([]);
+  const [episodes, setEpisodes] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const SerieDetail: React.FC = () => {
 
       <SerieTrailer trailer={trailer} />
       <SerieCast cast={cast} />
-      <SerieSeasons seasons={serieDetails.seasons} />
+      <SerieSeasons seasons={serieDetails.seasons} tvid={Number(id)} />
     </div>
   );
 };
