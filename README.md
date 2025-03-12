@@ -69,4 +69,9 @@ app
   [🔗](https://www.figma.com/design/BysSAgRwnXFlEydgkyAqat/Untitled?node-id=0-1&t=4o3E0A6wj6Q2yGp8-1)
 ## Enlace a GitHub
   [🔗](https://github.com/avegap23/proyecto-final-dwec)
+
+
+  ## ALEX   40%
+  ## MOHA   40%
+  ## ALVARO 20%
   
