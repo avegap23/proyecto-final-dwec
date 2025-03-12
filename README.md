@@ -1,100 +1,72 @@
-# Welcome to React Router!
+# MovieHub
 
-A modern, production-ready template for building full-stack React applications using React Router.
+## Descripción del Sitio Web
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+El sitio web **MovieHub** ofrece una plataforma para explorar una amplia variedad de películas y series. Al ingresar, los usuarios son recibidos con una interfaz que les permite elegir entre dos opciones principales:
 
-## Features
+1. **Ver Películas**: Accede a una extensa colección de películas de diversos géneros y épocas.
+2. **Ver Series**: Descubre una amplia selección de series, desde las más populares hasta las menos conocidas.
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+## Toda esta información proviene de la API **TMDB**.
+[🔗](https://developer.themoviedb.org/docs/getting-started)
 
-## Getting Started
+## Funcionalidades Principales
 
-### Installation
+- **Carrusel**: Muestra las opciones más populares de películas y series.
+- **Detalles**: Al hacer clic en una película o serie, los usuarios pueden ver detalles como:
+  - Tráiler
+  - Actores
+  - En el caso de las series, la lista de temporadas
+  - Al seleccionar una temporada, se despliega la lista de episodios
+- **Filtros de Búsqueda**:
+  - **Por nombre**
+  - **Por género**
+  - Ambos filtros pueden usarse simultáneamente
 
-Install the dependencies:
+Cada película o serie tiene una tarjeta con información relevante para mejorar la experiencia de usuario.
+## Tecnologías Utilizadas
+- **React Router** para la gestión de rutas.
+- **TypeScript** para una tipificación estática segura.
+- **Tailwind CSS** para el estilo de la aplicación.
+- **TMDB API** para obtener información sobre películas y series.
+- **Axios** para las solicitudes HTTP.
 
-```bash
-npm install
-```
 
-### Development
-
-Start the development server with HMR:
-
-```bash
-npm run dev
-```
-
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-This template includes three Dockerfiles optimized for different package managers:
-
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
-
-To build and run using Docker:
-
-```bash
-# For npm
-docker build -t my-app .
-
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
-
-# For bun
-docker build -f Dockerfile.bun -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
+## Estructura del Proyecto
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+app 
+│── assets 
+│── componentes 
+│   │── buscar.tsx 
+│   │── card.tsx 
+│   │── CargarMas.tsx 
+│   │── carrousel.tsx 
+│   │── carrouselSeries.tsx 
+│   │── header.tsx 
+│   │── MovieActors.tsx 
+│   │── MoviePoster.tsx 
+│   │── MovieTrailer.tsx 
+│   │── SerieCast.tsx 
+│   │── SeriePoster.tsx 
+│   │── SerieSeasons.tsx 
+│   │── SerieTrailer.tsx 
+│── routes 
+│   │── home.tsx 
+│   │── index.tsx 
+│   │── MovieDetail.tsx 
+│   │── SerieDetail.tsx 
+│   │── series.tsx 
+│── app.css 
+│── Logo.png 
+│── root.tsx 
+│── routes.ts 
 ```
 
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+## Enlace a la Página Web
+  [🔗](https://moviehub-beta-ten.vercel.app)
+## Enlace a Figma
+  [🔗](https://www.figma.com/design/BysSAgRwnXFlEydgkyAqat/Untitled?node-id=0-1&t=4o3E0A6wj6Q2yGp8-1)
+## Enlace a GitHub
+  [🔗](https://github.com/avegap23/proyecto-final-dwec)
+  
