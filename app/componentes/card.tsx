@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Placeholder from "../assets/tmdblogo.png";
 
 type MediaItem = {
   id: number;
@@ -15,13 +16,13 @@ type MediaItem = {
 };
 
 const Card: React.FC<{ item: MediaItem }> = ({ item }) => {
-  const placeholderImage = "../Logo.png";
+ 
   const isMovie = item.title; // Verifica si es una película
 
   return (
     <div className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transform transition-transform duration-300 hover:scale-105 cursor-pointer">
       <img
-        src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : placeholderImage}
+        src={item.poster_path ? `https://image.tmdb.org/t/p/w500${item.poster_path}` : Placeholder}
         alt={item.title || item.name}
         className="w-full h-72 object-cover"
       />

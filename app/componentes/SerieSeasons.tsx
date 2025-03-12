@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import TMDB from '../assets/tmdblogo.png';
 
 const API_KEY = 'abf5089fc83b3062f98114c95340c65b';
 const API_URL = 'https://api.themoviedb.org/3';
@@ -57,7 +58,7 @@ const SerieSeasons: React.FC<SerieSeasonsProps> = ({ seasons, tvid }) => {
           >
             <img
               className="w-full h-48 object-cover rounded-lg"
-              src={season.poster_path ? `https://image.tmdb.org/t/p/w500${season.poster_path}` : '/default-avatar.png'}
+              src={season.poster_path ? `https://image.tmdb.org/t/p/w500${season.poster_path}` : TMDB}
               alt={season.name}
             />
             <p className="text-white mt-2">{season.name}</p>

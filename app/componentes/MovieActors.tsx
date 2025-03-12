@@ -1,4 +1,5 @@
 import React from 'react';
+import Default from '../assets/default.jpg';
 
 interface Actor {
   id: number;
@@ -20,7 +21,7 @@ const MovieActors: React.FC<MovieActorsProps> = ({ actors }) => {
           <div key={actor.id} className="text-center bg-gray-800 p-4 rounded-lg">
             <img
               className="w-32 h-32 rounded-full mx-auto mb-4"
-              src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : '/default-avatar.png'}
+              src={actor.profile_path ? `https://image.tmdb.org/t/p/w500${actor.profile_path}` : Default}
               alt={actor.name}
             />
             <p className="text-white text-lg">{actor.name}</p>
